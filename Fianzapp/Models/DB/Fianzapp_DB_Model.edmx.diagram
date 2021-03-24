@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="25be4e16cdbb480bb58ba294d8c6ecaa" Name="Diagram1">
+        <EntityTypeShape EntityType="FianzappModel.Administrador" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="FianzappModel.Cliente" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FianzappModel.Demandado" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FianzappModel.Estado_Proceso" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FianzappModel.Estado_Seguimiento" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FianzappModel.Proceso" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FianzappModel.Rol" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FianzappModel.Seguimiento_Proceso" Width="1.5" PointX="7.5" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="FianzappModel.FK_Admin_Rol" ManuallyRouted="false" />
+        <AssociationConnector Association="FianzappModel.FK_Proceso_Administrador" ManuallyRouted="false" />
+        <AssociationConnector Association="FianzappModel.FK_Cliente_Rol" ManuallyRouted="false" />
+        <AssociationConnector Association="FianzappModel.FK_Proceso_Cliente" ManuallyRouted="false" />
+        <AssociationConnector Association="FianzappModel.FK_Proceso_Demandado" ManuallyRouted="false" />
+        <AssociationConnector Association="FianzappModel.FK_Proceso_Estado_Proceso" ManuallyRouted="false" />
+        <AssociationConnector Association="FianzappModel.FK_Seguimiento_Proceso_Estado_Seguimiento" ManuallyRouted="false" />
+        <AssociationConnector Association="FianzappModel.FK_Seguimiento_Proceso_Proceso" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

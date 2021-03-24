@@ -1,0 +1,609 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FianzappModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administrador">
+          <Key>
+            <PropertyRef Name="id_admin" />
+          </Key>
+          <Property Name="id_admin" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_administrador" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="documento_administrador" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="correo_administrador" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="usuario_administrador" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="contrasena_administrador" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="id_rol" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_cliente" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="nit_cliente" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="telefono_cliente" Type="nvarchar(max)" />
+          <Property Name="celular_cliente" Type="nvarchar(max)" />
+          <Property Name="direccion_cliente" Type="nvarchar(max)" />
+          <Property Name="correo_cliente" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="usuario_cliente" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="contrasena_cliente" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="numero_fianza" Type="int" Nullable="false" />
+          <Property Name="roles_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Demandado">
+          <Key>
+            <PropertyRef Name="id_usuario_demandado" />
+          </Key>
+          <Property Name="id_usuario_demandado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_usuario_demandado" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="cedula_usuario_demandado" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="telefono_usuario_demandado" Type="nvarchar(max)" />
+          <Property Name="celular_usuario_demandado" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="correo_usuario_demandado" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="direccion_usuario_demandado" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Estado_Proceso">
+          <Key>
+            <PropertyRef Name="id_estado_solicitud" />
+          </Key>
+          <Property Name="id_estado_solicitud" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_estado_solicitud" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Estado_Seguimiento">
+          <Key>
+            <PropertyRef Name="id_estado_segui" />
+          </Key>
+          <Property Name="id_estado_segui" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="estado" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Proceso">
+          <Key>
+            <PropertyRef Name="id_proceso" />
+          </Key>
+          <Property Name="id_proceso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numero_proceso" Type="int" Nullable="false" />
+          <Property Name="id_estado" Type="int" Nullable="false" />
+          <Property Name="id_demandado" Type="int" Nullable="false" />
+          <Property Name="id_cliente" Type="int" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="archivo_proceso" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="id_administrador" Type="int" Nullable="false" />
+          <Property Name="Fecha_creacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre_rol" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Fecha_creacion" Type="datetime" Nullable="false" />
+          <Property Name="Fecha_modificado" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Seguimiento_Proceso">
+          <Key>
+            <PropertyRef Name="id_seg_proceso" />
+          </Key>
+          <Property Name="id_seg_proceso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_creacion" Type="datetime" Nullable="false" />
+          <Property Name="fecha_modificado" Type="datetime" />
+          <Property Name="observaciones" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="archivo_seg_proceso" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="id_estado" Type="int" Nullable="false" />
+          <Property Name="id_proceso" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Admin_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Administrador" Type="Self.Administrador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Administrador">
+              <PropertyRef Name="id_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="roles_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proceso_Administrador">
+          <End Role="Administrador" Type="Self.Administrador" Multiplicity="1" />
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Administrador">
+              <PropertyRef Name="id_admin" />
+            </Principal>
+            <Dependent Role="Proceso">
+              <PropertyRef Name="id_proceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proceso_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="Proceso">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proceso_Demandado">
+          <End Role="Demandado" Type="Self.Demandado" Multiplicity="1" />
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Demandado">
+              <PropertyRef Name="id_usuario_demandado" />
+            </Principal>
+            <Dependent Role="Proceso">
+              <PropertyRef Name="id_demandado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proceso_Estado_Proceso">
+          <End Role="Estado_Proceso" Type="Self.Estado_Proceso" Multiplicity="1" />
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Estado_Proceso">
+              <PropertyRef Name="id_estado_solicitud" />
+            </Principal>
+            <Dependent Role="Proceso">
+              <PropertyRef Name="id_proceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seguimiento_Proceso_Estado_Seguimiento">
+          <End Role="Estado_Seguimiento" Type="Self.Estado_Seguimiento" Multiplicity="1" />
+          <End Role="Seguimiento_Proceso" Type="Self.Seguimiento_Proceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado_Seguimiento">
+              <PropertyRef Name="id_estado_segui" />
+            </Principal>
+            <Dependent Role="Seguimiento_Proceso">
+              <PropertyRef Name="id_estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seguimiento_Proceso_Proceso">
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="1" />
+          <End Role="Seguimiento_Proceso" Type="Self.Seguimiento_Proceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proceso">
+              <PropertyRef Name="id_proceso" />
+            </Principal>
+            <Dependent Role="Seguimiento_Proceso">
+              <PropertyRef Name="id_proceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FianzappModelStoreContainer">
+          <EntitySet Name="Administrador" EntityType="Self.Administrador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Demandado" EntityType="Self.Demandado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estado_Proceso" EntityType="Self.Estado_Proceso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estado_Seguimiento" EntityType="Self.Estado_Seguimiento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Proceso" EntityType="Self.Proceso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Seguimiento_Proceso" EntityType="Self.Seguimiento_Proceso" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Admin_Rol" Association="Self.FK_Admin_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Administrador" EntitySet="Administrador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Rol" Association="Self.FK_Cliente_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proceso_Administrador" Association="Self.FK_Proceso_Administrador">
+            <End Role="Administrador" EntitySet="Administrador" />
+            <End Role="Proceso" EntitySet="Proceso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proceso_Cliente" Association="Self.FK_Proceso_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Proceso" EntitySet="Proceso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proceso_Demandado" Association="Self.FK_Proceso_Demandado">
+            <End Role="Demandado" EntitySet="Demandado" />
+            <End Role="Proceso" EntitySet="Proceso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proceso_Estado_Proceso" Association="Self.FK_Proceso_Estado_Proceso">
+            <End Role="Estado_Proceso" EntitySet="Estado_Proceso" />
+            <End Role="Proceso" EntitySet="Proceso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seguimiento_Proceso_Estado_Seguimiento" Association="Self.FK_Seguimiento_Proceso_Estado_Seguimiento">
+            <End Role="Estado_Seguimiento" EntitySet="Estado_Seguimiento" />
+            <End Role="Seguimiento_Proceso" EntitySet="Seguimiento_Proceso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seguimiento_Proceso_Proceso" Association="Self.FK_Seguimiento_Proceso_Proceso">
+            <End Role="Proceso" EntitySet="Proceso" />
+            <End Role="Seguimiento_Proceso" EntitySet="Seguimiento_Proceso" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FianzappModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Administrador">
+          <Key>
+            <PropertyRef Name="id_admin" />
+          </Key>
+          <Property Name="id_admin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_administrador" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="documento_administrador" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="correo_administrador" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="usuario_administrador" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="contrasena_administrador" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_rol" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Rol" Relationship="Self.FK_Admin_Rol" FromRole="Administrador" ToRole="Rol" />
+          <NavigationProperty Name="Proceso" Relationship="Self.FK_Proceso_Administrador" FromRole="Administrador" ToRole="Proceso" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="id_cliente" />
+          </Key>
+          <Property Name="id_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_cliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nit_cliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="telefono_cliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="celular_cliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="direccion_cliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="correo_cliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="usuario_cliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="contrasena_cliente" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="numero_fianza" Type="Int32" Nullable="false" />
+          <Property Name="roles_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Rol" Relationship="Self.FK_Cliente_Rol" FromRole="Cliente" ToRole="Rol" />
+          <NavigationProperty Name="Proceso" Relationship="Self.FK_Proceso_Cliente" FromRole="Cliente" ToRole="Proceso" />
+        </EntityType>
+        <EntityType Name="Demandado">
+          <Key>
+            <PropertyRef Name="id_usuario_demandado" />
+          </Key>
+          <Property Name="id_usuario_demandado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_usuario_demandado" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="cedula_usuario_demandado" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="telefono_usuario_demandado" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="celular_usuario_demandado" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="correo_usuario_demandado" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="direccion_usuario_demandado" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Proceso" Relationship="Self.FK_Proceso_Demandado" FromRole="Demandado" ToRole="Proceso" />
+        </EntityType>
+        <EntityType Name="Estado_Proceso">
+          <Key>
+            <PropertyRef Name="id_estado_solicitud" />
+          </Key>
+          <Property Name="id_estado_solicitud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_estado_solicitud" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Proceso" Relationship="Self.FK_Proceso_Estado_Proceso" FromRole="Estado_Proceso" ToRole="Proceso" />
+        </EntityType>
+        <EntityType Name="Estado_Seguimiento">
+          <Key>
+            <PropertyRef Name="id_estado_segui" />
+          </Key>
+          <Property Name="id_estado_segui" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="estado" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Seguimiento_Proceso" Relationship="Self.FK_Seguimiento_Proceso_Estado_Seguimiento" FromRole="Estado_Seguimiento" ToRole="Seguimiento_Proceso" />
+        </EntityType>
+        <EntityType Name="Proceso">
+          <Key>
+            <PropertyRef Name="id_proceso" />
+          </Key>
+          <Property Name="id_proceso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numero_proceso" Type="Int32" Nullable="false" />
+          <Property Name="id_estado" Type="Int32" Nullable="false" />
+          <Property Name="id_demandado" Type="Int32" Nullable="false" />
+          <Property Name="id_cliente" Type="Int32" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="archivo_proceso" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_administrador" Type="Int32" Nullable="false" />
+          <Property Name="Fecha_creacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Administrador" Relationship="Self.FK_Proceso_Administrador" FromRole="Proceso" ToRole="Administrador" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Proceso_Cliente" FromRole="Proceso" ToRole="Cliente" />
+          <NavigationProperty Name="Demandado" Relationship="Self.FK_Proceso_Demandado" FromRole="Proceso" ToRole="Demandado" />
+          <NavigationProperty Name="Estado_Proceso" Relationship="Self.FK_Proceso_Estado_Proceso" FromRole="Proceso" ToRole="Estado_Proceso" />
+          <NavigationProperty Name="Seguimiento_Proceso" Relationship="Self.FK_Seguimiento_Proceso_Proceso" FromRole="Proceso" ToRole="Seguimiento_Proceso" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre_rol" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Fecha_creacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Fecha_modificado" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Administrador" Relationship="Self.FK_Admin_Rol" FromRole="Rol" ToRole="Administrador" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK_Cliente_Rol" FromRole="Rol" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="Seguimiento_Proceso">
+          <Key>
+            <PropertyRef Name="id_seg_proceso" />
+          </Key>
+          <Property Name="id_seg_proceso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_creacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fecha_modificado" Type="DateTime" Precision="3" />
+          <Property Name="observaciones" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="archivo_seg_proceso" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="id_estado" Type="Int32" Nullable="false" />
+          <Property Name="id_proceso" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Estado_Seguimiento" Relationship="Self.FK_Seguimiento_Proceso_Estado_Seguimiento" FromRole="Seguimiento_Proceso" ToRole="Estado_Seguimiento" />
+          <NavigationProperty Name="Proceso" Relationship="Self.FK_Seguimiento_Proceso_Proceso" FromRole="Seguimiento_Proceso" ToRole="Proceso" />
+        </EntityType>
+        <Association Name="FK_Admin_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Administrador" Type="Self.Administrador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Administrador">
+              <PropertyRef Name="id_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proceso_Administrador">
+          <End Role="Administrador" Type="Self.Administrador" Multiplicity="1" />
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Administrador">
+              <PropertyRef Name="id_admin" />
+            </Principal>
+            <Dependent Role="Proceso">
+              <PropertyRef Name="id_proceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cliente_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="roles_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proceso_Cliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id_cliente" />
+            </Principal>
+            <Dependent Role="Proceso">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proceso_Demandado">
+          <End Role="Demandado" Type="Self.Demandado" Multiplicity="1" />
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Demandado">
+              <PropertyRef Name="id_usuario_demandado" />
+            </Principal>
+            <Dependent Role="Proceso">
+              <PropertyRef Name="id_demandado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Proceso_Estado_Proceso">
+          <End Role="Estado_Proceso" Type="Self.Estado_Proceso" Multiplicity="1" />
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Estado_Proceso">
+              <PropertyRef Name="id_estado_solicitud" />
+            </Principal>
+            <Dependent Role="Proceso">
+              <PropertyRef Name="id_proceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seguimiento_Proceso_Estado_Seguimiento">
+          <End Role="Estado_Seguimiento" Type="Self.Estado_Seguimiento" Multiplicity="1" />
+          <End Role="Seguimiento_Proceso" Type="Self.Seguimiento_Proceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado_Seguimiento">
+              <PropertyRef Name="id_estado_segui" />
+            </Principal>
+            <Dependent Role="Seguimiento_Proceso">
+              <PropertyRef Name="id_estado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seguimiento_Proceso_Proceso">
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="1" />
+          <End Role="Seguimiento_Proceso" Type="Self.Seguimiento_Proceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Proceso">
+              <PropertyRef Name="id_proceso" />
+            </Principal>
+            <Dependent Role="Seguimiento_Proceso">
+              <PropertyRef Name="id_proceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FianzappEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administrador" EntityType="Self.Administrador" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Demandado" EntityType="Self.Demandado" />
+          <EntitySet Name="Estado_Proceso" EntityType="Self.Estado_Proceso" />
+          <EntitySet Name="Estado_Seguimiento" EntityType="Self.Estado_Seguimiento" />
+          <EntitySet Name="Proceso" EntityType="Self.Proceso" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" />
+          <EntitySet Name="Seguimiento_Proceso" EntityType="Self.Seguimiento_Proceso" />
+          <AssociationSet Name="FK_Admin_Rol" Association="Self.FK_Admin_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Administrador" EntitySet="Administrador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proceso_Administrador" Association="Self.FK_Proceso_Administrador">
+            <End Role="Administrador" EntitySet="Administrador" />
+            <End Role="Proceso" EntitySet="Proceso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cliente_Rol" Association="Self.FK_Cliente_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proceso_Cliente" Association="Self.FK_Proceso_Cliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Proceso" EntitySet="Proceso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proceso_Demandado" Association="Self.FK_Proceso_Demandado">
+            <End Role="Demandado" EntitySet="Demandado" />
+            <End Role="Proceso" EntitySet="Proceso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Proceso_Estado_Proceso" Association="Self.FK_Proceso_Estado_Proceso">
+            <End Role="Estado_Proceso" EntitySet="Estado_Proceso" />
+            <End Role="Proceso" EntitySet="Proceso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seguimiento_Proceso_Estado_Seguimiento" Association="Self.FK_Seguimiento_Proceso_Estado_Seguimiento">
+            <End Role="Estado_Seguimiento" EntitySet="Estado_Seguimiento" />
+            <End Role="Seguimiento_Proceso" EntitySet="Seguimiento_Proceso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seguimiento_Proceso_Proceso" Association="Self.FK_Seguimiento_Proceso_Proceso">
+            <End Role="Proceso" EntitySet="Proceso" />
+            <End Role="Seguimiento_Proceso" EntitySet="Seguimiento_Proceso" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FianzappModelStoreContainer" CdmEntityContainer="FianzappEntities">
+          <EntitySetMapping Name="Administrador">
+            <EntityTypeMapping TypeName="FianzappModel.Administrador">
+              <MappingFragment StoreEntitySet="Administrador">
+                <ScalarProperty Name="id_admin" ColumnName="id_admin" />
+                <ScalarProperty Name="nombre_administrador" ColumnName="nombre_administrador" />
+                <ScalarProperty Name="documento_administrador" ColumnName="documento_administrador" />
+                <ScalarProperty Name="correo_administrador" ColumnName="correo_administrador" />
+                <ScalarProperty Name="usuario_administrador" ColumnName="usuario_administrador" />
+                <ScalarProperty Name="contrasena_administrador" ColumnName="contrasena_administrador" />
+                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="FianzappModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="nombre_cliente" ColumnName="nombre_cliente" />
+                <ScalarProperty Name="nit_cliente" ColumnName="nit_cliente" />
+                <ScalarProperty Name="telefono_cliente" ColumnName="telefono_cliente" />
+                <ScalarProperty Name="celular_cliente" ColumnName="celular_cliente" />
+                <ScalarProperty Name="direccion_cliente" ColumnName="direccion_cliente" />
+                <ScalarProperty Name="correo_cliente" ColumnName="correo_cliente" />
+                <ScalarProperty Name="usuario_cliente" ColumnName="usuario_cliente" />
+                <ScalarProperty Name="contrasena_cliente" ColumnName="contrasena_cliente" />
+                <ScalarProperty Name="numero_fianza" ColumnName="numero_fianza" />
+                <ScalarProperty Name="roles_id" ColumnName="roles_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Demandado">
+            <EntityTypeMapping TypeName="FianzappModel.Demandado">
+              <MappingFragment StoreEntitySet="Demandado">
+                <ScalarProperty Name="id_usuario_demandado" ColumnName="id_usuario_demandado" />
+                <ScalarProperty Name="nombre_usuario_demandado" ColumnName="nombre_usuario_demandado" />
+                <ScalarProperty Name="cedula_usuario_demandado" ColumnName="cedula_usuario_demandado" />
+                <ScalarProperty Name="telefono_usuario_demandado" ColumnName="telefono_usuario_demandado" />
+                <ScalarProperty Name="celular_usuario_demandado" ColumnName="celular_usuario_demandado" />
+                <ScalarProperty Name="correo_usuario_demandado" ColumnName="correo_usuario_demandado" />
+                <ScalarProperty Name="direccion_usuario_demandado" ColumnName="direccion_usuario_demandado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estado_Proceso">
+            <EntityTypeMapping TypeName="FianzappModel.Estado_Proceso">
+              <MappingFragment StoreEntitySet="Estado_Proceso">
+                <ScalarProperty Name="id_estado_solicitud" ColumnName="id_estado_solicitud" />
+                <ScalarProperty Name="nombre_estado_solicitud" ColumnName="nombre_estado_solicitud" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estado_Seguimiento">
+            <EntityTypeMapping TypeName="FianzappModel.Estado_Seguimiento">
+              <MappingFragment StoreEntitySet="Estado_Seguimiento">
+                <ScalarProperty Name="id_estado_segui" ColumnName="id_estado_segui" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Proceso">
+            <EntityTypeMapping TypeName="FianzappModel.Proceso">
+              <MappingFragment StoreEntitySet="Proceso">
+                <ScalarProperty Name="id_proceso" ColumnName="id_proceso" />
+                <ScalarProperty Name="numero_proceso" ColumnName="numero_proceso" />
+                <ScalarProperty Name="id_estado" ColumnName="id_estado" />
+                <ScalarProperty Name="id_demandado" ColumnName="id_demandado" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="archivo_proceso" ColumnName="archivo_proceso" />
+                <ScalarProperty Name="id_administrador" ColumnName="id_administrador" />
+                <ScalarProperty Name="Fecha_creacion" ColumnName="Fecha_creacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="FianzappModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Nombre_rol" ColumnName="Nombre_rol" />
+                <ScalarProperty Name="Fecha_creacion" ColumnName="Fecha_creacion" />
+                <ScalarProperty Name="Fecha_modificado" ColumnName="Fecha_modificado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seguimiento_Proceso">
+            <EntityTypeMapping TypeName="FianzappModel.Seguimiento_Proceso">
+              <MappingFragment StoreEntitySet="Seguimiento_Proceso">
+                <ScalarProperty Name="id_seg_proceso" ColumnName="id_seg_proceso" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="fecha_modificado" ColumnName="fecha_modificado" />
+                <ScalarProperty Name="observaciones" ColumnName="observaciones" />
+                <ScalarProperty Name="archivo_seg_proceso" ColumnName="archivo_seg_proceso" />
+                <ScalarProperty Name="id_estado" ColumnName="id_estado" />
+                <ScalarProperty Name="id_proceso" ColumnName="id_proceso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
