@@ -200,20 +200,13 @@
     <Content Include="Global.asax" />
     <Content Include="Models\DB\Fianzapp_DB_Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Fianzapp_DB_Model.Context.cs</LastGenOutput>
       <DependentUpon>Fianzapp_DB_Model.edmx</DependentUpon>
+      <LastGenOutput>Fianzapp_DB_Model.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\DB\Fianzapp_DB_Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Fianzapp_DB_Model.edmx</DependentUpon>
       <LastGenOutput>Fianzapp_DB_Model.cs</LastGenOutput>
-    </Content>
-    <EntityDeploy Include="Models\DB\Fianzapp_DB_Model.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Fianzapp_DB_Model.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DB\Fianzapp_DB_Model.edmx.diagram">
-      <DependentUpon>Fianzapp_DB_Model.edmx</DependentUpon>
     </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -229,6 +222,13 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <EntityDeploy Include="Models\DB\Fianzapp_DB_Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Fianzapp_DB_Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DB\Fianzapp_DB_Model.edmx.diagram">
+      <DependentUpon>Fianzapp_DB_Model.edmx</DependentUpon>
+    </Content>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -14,6 +14,12 @@ namespace Fianzapp.Models.DB
     
     public partial class Administrador
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Administrador()
+        {
+            this.Proceso = new HashSet<Proceso>();
+        }
+    
         public int id_admin { get; set; }
         public string nombre_administrador { get; set; }
         public string documento_administrador { get; set; }
@@ -23,6 +29,7 @@ namespace Fianzapp.Models.DB
         public int id_rol { get; set; }
     
         public virtual Rol Rol { get; set; }
-        public virtual Proceso Proceso { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Proceso> Proceso { get; set; }
     }
 }

@@ -180,19 +180,23 @@ namespace Fianzapp.Transaction
                     {
                         if (Pro == null)
                         {
-                            Pro = new Proceso();
-                            Pro.numero_proceso = model.numero_proceso;
-                            Pro.id_estado = model.id_estado;
-                            Pro.id_demandado = model.id_demandado;
-                            Pro.id_cliente = model.id_cliente;
-                            Pro.descripcion = model.descripcion;
+                            Pro = new Proceso
+                            {
+                                numero_proceso = model.numero_proceso,
+                                id_estado = model.id_estado,
+                                id_demandado = model.id_demandado,
+                                id_cliente = model.id_cliente,
+                                descripcion = model.descripcion,
+                                id_administrador=model.id_administrador,
+                                Fecha_creacion=model.Fecha_creacion
+                            };
                             if (!string.IsNullOrEmpty(model.archivo_proceso))
                             {
                                 if (File.Exists(model.archivo_proceso))
                                 {
                                     try
                                     {
-                                        File.Move(model.archivo_proceso, Directory.GetCurrentDirectory());
+                                        File.Copy(model.archivo_proceso, "C:/TEMP/"+model.archivo_proceso.Split('/')[model.archivo_proceso.Split('/').Length-1],true);
                                         Pro.archivo_proceso = model.archivo_proceso;
                                     }
                                     catch (Exception ex)
@@ -200,9 +204,6 @@ namespace Fianzapp.Transaction
                                     }
                                 }
                             }
-                            Pro.id_administrador = model.id_administrador;
-                            Pro.Fecha_creacion = DateTime.Now;
-                            
                             DB.Proceso.Add(Pro);
                             DB.SaveChanges();
                             response.Successfully = true;

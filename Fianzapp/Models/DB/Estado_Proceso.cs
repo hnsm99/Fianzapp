@@ -14,9 +14,16 @@ namespace Fianzapp.Models.DB
     
     public partial class Estado_Proceso
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Estado_Proceso()
+        {
+            this.Proceso = new HashSet<Proceso>();
+        }
+    
         public int id_estado_solicitud { get; set; }
         public string nombre_estado_solicitud { get; set; }
     
-        public virtual Proceso Proceso { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Proceso> Proceso { get; set; }
     }
 }

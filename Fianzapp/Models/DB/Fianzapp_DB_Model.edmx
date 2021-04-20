@@ -120,13 +120,13 @@
         </Association>
         <Association Name="FK_Proceso_Administrador">
           <End Role="Administrador" Type="Self.Administrador" Multiplicity="1" />
-          <End Role="Proceso" Type="Self.Proceso" Multiplicity="0..1" />
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Administrador">
               <PropertyRef Name="id_admin" />
             </Principal>
             <Dependent Role="Proceso">
-              <PropertyRef Name="id_proceso" />
+              <PropertyRef Name="id_administrador" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -156,13 +156,13 @@
         </Association>
         <Association Name="FK_Proceso_Estado_Proceso">
           <End Role="Estado_Proceso" Type="Self.Estado_Proceso" Multiplicity="1" />
-          <End Role="Proceso" Type="Self.Proceso" Multiplicity="0..1" />
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estado_Proceso">
               <PropertyRef Name="id_estado_solicitud" />
             </Principal>
             <Dependent Role="Proceso">
-              <PropertyRef Name="id_proceso" />
+              <PropertyRef Name="id_estado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -356,13 +356,13 @@
         </Association>
         <Association Name="FK_Proceso_Administrador">
           <End Role="Administrador" Type="Self.Administrador" Multiplicity="1" />
-          <End Role="Proceso" Type="Self.Proceso" Multiplicity="0..1" />
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Administrador">
               <PropertyRef Name="id_admin" />
             </Principal>
             <Dependent Role="Proceso">
-              <PropertyRef Name="id_proceso" />
+              <PropertyRef Name="id_administrador" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -404,13 +404,13 @@
         </Association>
         <Association Name="FK_Proceso_Estado_Proceso">
           <End Role="Estado_Proceso" Type="Self.Estado_Proceso" Multiplicity="1" />
-          <End Role="Proceso" Type="Self.Proceso" Multiplicity="0..1" />
+          <End Role="Proceso" Type="Self.Proceso" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estado_Proceso">
               <PropertyRef Name="id_estado_solicitud" />
             </Principal>
             <Dependent Role="Proceso">
-              <PropertyRef Name="id_proceso" />
+              <PropertyRef Name="id_estado" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
